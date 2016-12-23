@@ -1,1 +1,52 @@
-A simple alternative to awk
+WORD(1)
+
+NAME
+    word - Python per-line text editor.
+
+SYNOPSIS
+    word [WORD_INDICES | PYTHON_COMMAND]
+
+DESCRIPTION
+    Word prints the Nth word of each line of text.  Alternatively, word runs a Python command on each line of text.  
+    If the input argument is an integer N, then word will run the command "print words[N]".
+    Otherwise, the argument will be parsed as a Python command to run on each line of text.
+
+    The command has access to the following variables:
+
+        line - String, the full text of the current line
+
+        words - List of strings, equivalent to line.split()
+
+        tabs - List of strings, equivalent to line.split('\t')
+
+    If the command outputs a list, it will be converted to a string by ' '.join()
+
+EXAMPLES
+    Print the fourth word on every line:
+
+        word 3
+
+    Print the first and last word of every line:
+
+        cat mytext.txt | word 0,-1
+
+    Print the third and first entries in a tab-delimited CSV text file:
+
+        cat foo.csv | word tabs[2],tabs[0]
+
+    In a tab-delimited CSV file, print all entries except the last three:
+
+        cat foo.csv | word tabs[:-3]
+
+    Print Alice in Wonderland, removing every word that begins with the letter K
+
+        curl lwneal.com/alice.txt | word '[w for w in words if not w.startswith("k")]'
+
+    Print the numbers from 1 to 100.
+    But for multiples of three print "Fizz" instead, and for the multiples of five print "Buzz". 
+
+        seq 100 | word '"fizzbuzz" if not int(line) % 15 else "fizz" if not int(line) % 5 else "buzz" if not int(line) % 3 else line'
+
+    In Vim, replace all selected text with the second word of each line
+
+        !word 1
