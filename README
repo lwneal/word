@@ -7,9 +7,9 @@ SYNOPSIS
     word [WORD_INDICES | PYTHON_COMMAND]
 
 DESCRIPTION
-    Word prints the Nth word of each line of text.
-    Alternatively, word runs a Python command on each line of text.  
-    If the input argument is an integer N, then word print the Nth word of each line.
+    Print the Nth word of each line of text.
+    Alternatively, execute a Python statement at each line of text.  
+    If the input argument is an integer N, then word prints the Nth word of each line.
     Otherwise, the argument will be parsed as a Python command to run on each line of text.
 
     The command has access to the following variables:
@@ -50,4 +50,4 @@ EXAMPLES
 
     In Vim, replace all selected text with the second word of each line
 
-        !word 1
+        :!word 1
